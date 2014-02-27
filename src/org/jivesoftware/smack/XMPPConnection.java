@@ -33,9 +33,12 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
+
 import org.apache.harmony.javax.security.auth.callback.Callback;
 import org.apache.harmony.javax.security.auth.callback.CallbackHandler;
 import org.apache.harmony.javax.security.auth.callback.PasswordCallback;
+
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -78,6 +81,7 @@ public class XMPPConnection extends Connection {
     // by XMPPConnection, PacketReader, PacketWriter
     private volatile boolean socketClosed = false;
 
+    private static final String TAG = XMPPConnection.class.getName();
     /**
      * Flag that indicates if the user is currently authenticated with the server.
      */
@@ -310,7 +314,9 @@ public class XMPPConnection extends Connection {
             throw new IllegalStateException("Not connected to server.");
         }
         if (authenticated) {
-            throw new IllegalStateException("Already logged in to server.");
+        	Log.w(TAG, "Already logged in to server");
+//            throw new IllegalStateException("Already logged in to server.");
+        	return ;
         }
 
         String response;
@@ -493,7 +499,9 @@ public class XMPPConnection extends Connection {
             throw new IllegalStateException("Not connected to server.");
         }
         if (packet == null) {
-            throw new NullPointerException("Packet is null.");
+        	Log.e(TAG, "Packet is null.");
+//            throw new NullPointerException("Packet is null.");
+        	return;
         }
         packetWriter.sendPacket(packet);
     }

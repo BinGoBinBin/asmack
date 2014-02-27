@@ -369,8 +369,9 @@ public class StringUtils {
      * @return true if full JID, false otherwise
      */
     public static boolean isFullJID(String jid) {
-        if (parseName(jid).length() <= 0 || parseServer(jid).length() <= 0
-                || parseResource(jid).length() <= 0) {
+        if (parseName(jid).length() <= 0 
+        		|| parseServer(jid).length() <= 0
+                /**|| parseResource(jid).length() <= 0*/) {
             return false;
         }
         return true;

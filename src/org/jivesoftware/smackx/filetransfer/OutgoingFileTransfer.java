@@ -22,6 +22,8 @@ package org.jivesoftware.smackx.filetransfer;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.XMPPError;
 
+import android.util.Log;
+
 import java.io.*;
 
 /**
@@ -34,6 +36,7 @@ import java.io.*;
  */
 public class OutgoingFileTransfer extends FileTransfer {
 
+	private static final String TAG = OutgoingFileTransfer.class.getName();
 	private static int RESPONSE_TIMEOUT = 60 * 1000;
     private NegotiationProgress callback;
 
@@ -205,7 +208,9 @@ public class OutgoingFileTransfer extends FileTransfer {
 			throws XMPPException {
 		checkTransferThread();
 		if (file == null || !file.exists() || !file.canRead()) {
-			throw new IllegalArgumentException("Could not read file");
+			Log.e(TAG, "Could not read file");
+//			throw new IllegalArgumentException("Could not read file");
+			return;
 		} else {
 			setFileInfo(file.getAbsolutePath(), file.getName(), file.length());
 		}
@@ -216,6 +221,7 @@ public class OutgoingFileTransfer extends FileTransfer {
 					outputStream = negotiateStream(file.getName(), file
 							.length(), description);
 				} catch (XMPPException e) {
+					e.printStackTrace();
 					handleXMPPException(e);
 					return;
 				}
