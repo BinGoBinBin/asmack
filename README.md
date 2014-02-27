@@ -1,0 +1,4 @@
+asmack
+======
+
+fixed asmack bug 
