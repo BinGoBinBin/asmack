@@ -1,4 +1,2 @@
 asmack
 ======
-
-fixed asmack bug 
